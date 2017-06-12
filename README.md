@@ -6,4 +6,4 @@
 5. Download Firefox selenium driver: https://github.com/mozilla/geckodriver/releases
 6. `webdriver.Firefox(executable_path='/driver/geckodriver')`
 
-## 
+## Chapter 2
