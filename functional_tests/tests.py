@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox(executable_path='/driver/geckodriver')
@@ -91,7 +91,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn("Buy milk", page_text)
 
         #两人都很满意，去睡觉了
-        self.fail("Finish the test")
 
     def test_layout_and_styling(self):
         # 伊迪丝访问网页
