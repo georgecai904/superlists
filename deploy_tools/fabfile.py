@@ -28,10 +28,10 @@ def _get_latest_source(source_folder):
 
 def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/superlists/settings.py'
-    sed(settings_path, "DEBUG=True", "DEBUG=False")
+    sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path,
-        "ALLOWED_HOSTS=.+$",
-        "ALLOWED_HOSTS=['{0}']".format(site_name)
+        "ALLOWED_HOSTS = .+$",
+        "ALLOWED_HOSTS = ['{0}']".format(site_name)
     )
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exits(secret_key_file):
