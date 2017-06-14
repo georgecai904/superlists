@@ -9,6 +9,7 @@
 * Virtualenv
 
 以ubuntu为例，可以执行下面的命令安装
+ sudo apt-get update
  sudo apt-get install nginx git python3 python3-pip
  sudo pip3 install virtualenv
 
