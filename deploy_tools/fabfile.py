@@ -49,4 +49,4 @@ def _update_static_files(source_folder):
 
 def _update_database(source_folder):
     run('cd {0} && ../virtualenv/bin/python3 manage.py \
-        migrate --nopinut'.format(source_folder))
+        migrate --noinput'.format(source_folder))
