@@ -1,0 +1,8 @@
+[Unit]
+Description=Gunicorn server for SITENAME
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/george/sites/SITENAME/source
+ExecStart=/home/george/sites/SITENAME/virtualenv/bin/gunicorn --bind unix:/tmp/SITENAME.socket superlists.wsgi:application
