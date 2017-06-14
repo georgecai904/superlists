@@ -4,5 +4,5 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/xxx/sites/SITENAME/source
-ExecStart=/home/xxx/sites/SITENAME/virtualenv/bin/gunicorn --bind unix:/tmp/SITENAME.socket superlists.wsgi:application
+WorkingDirectory=/home/USER/sites/SITENAME/source
+ExecStart=/home/USER/sites/SITENAME/virtualenv/bin/gunicorn --bind unix:/tmp/SITENAME.socket superlists.wsgi:application
