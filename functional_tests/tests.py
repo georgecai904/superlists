@@ -8,9 +8,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox(executable_path='/driver/geckodriver')
-        staging_server = os.environ.get('STAGING_SERVER')
-        if staging_server:
-            self.live_server_url = 'http://' + staging_server
+        self.browser.implicitly_wait(3)
+        # staging_server = os.environ.get('STAGING_SERVER')
+        # print(staging_server)
+        # if staging_server:
+        STAGING_SERVER = 'staging.artshub.xyz'
+        self.live_server_url = 'http://' + STAGING_SERVER
 
     def tearDown(self):
         self.browser.quit()
@@ -23,10 +26,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # 伊迪丝听说有一个很酷的在线待办事项应用
         # 她去看了这个应用的首页
+        print(self.live_server_url)
         self.browser.get(self.live_server_url)
 
         # 她注意到网页的标题和头部都包含“To-Do”这个词
         self.assertIn('To-Do', self.browser.title)
+
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
 
