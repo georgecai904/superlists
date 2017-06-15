@@ -36,3 +36,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             if self.browser.execute_script("return document.readyState") == "complete":
                 yield
                 break
+
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
