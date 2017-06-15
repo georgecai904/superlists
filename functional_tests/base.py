@@ -8,7 +8,6 @@ from contextlib import contextmanager
 
 class FunctionalTest(StaticLiveServerTestCase):
 
-
     def setUp(self):
         self._driver_path = '/driver/geckodriver'
         self.browser = webdriver.Firefox(executable_path=self._driver_path)
@@ -21,13 +20,19 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.quit()
 
     def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id("id_list_table")
-        rows = self.browser.find_elements_by_tag_name("tr")
-        self.assertIn(row_text, [row.text for row in rows])
+        with self.wait_for_page_load():
+            table = self.browser.find_element_by_id("id_list_table")
+            rows = self.browser.find_elements_by_tag_name("tr")
+            self.assertIn(row_text, [row.text for row in rows])
 
     @contextmanager
-    def wait_for_page_load(self, timeout=3):
-        old_page = self.browser.find_element_by_tag_name('html')
-        yield WebDriverWait(self.browser, timeout).until(
-            staleness_of(old_page)
-        )
+    def wait_for_page_load(self, timeout=0.1):
+        # old_page = self.browser.find_element_by_tag_name('html')
+        # yield WebDriverWait(self.browser, timeout).until(
+        #     staleness_of(old_page)
+        # )
+        while True:
+            time.sleep(timeout)
+            if self.browser.execute_script("return document.readyState") == "complete":
+                yield
+                break
