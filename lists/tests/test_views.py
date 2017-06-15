@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from lists.models import Item, List
 from django.utils.html import escape
+from lists.forms import ItemForm
 
 # Create your tests here.
 # class SmokeTest(TestCase):
@@ -19,15 +20,13 @@ def remove_csrf(html_code):
 
 class HomePageTest(TestCase):
 
-    def test_root_url_resolvess_to_home_page_view(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
+    def test_home_page_renders_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, "lists/home.html")
 
-    def test_home_page_returns_correct_html(self):
-        request = HttpRequest()
-        response = home_page(request)
-        expected_html= render_to_string("lists/home.html", request=request)
-        self.assertEqual(remove_csrf(response.content.decode()), remove_csrf(expected_html))
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
 
     def test_home_page_only_saves_items_when_necessary(self):
         request = HttpRequest()
