@@ -20,8 +20,8 @@ class LayoutAndStylingTest(FunctionalTest):
         # 她新建了一个清单，看到输入框仍完美地剧中显示
         inputbox.send_keys("testing\n")
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        with self.wait_for_page_load():
+            inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             512,

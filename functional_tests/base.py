@@ -1,5 +1,10 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.expected_conditions import staleness_of
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+import time
+from contextlib import contextmanager
+
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -19,3 +24,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         table = self.browser.find_element_by_id("id_list_table")
         rows = self.browser.find_elements_by_tag_name("tr")
         self.assertIn(row_text, [row.text for row in rows])
+
+    @contextmanager
+    def wait_for_page_load(self, timeout=3):
+        old_page = self.browser.find_element_by_tag_name('html')
+        yield WebDriverWait(self.browser, timeout).until(
+            staleness_of(old_page)
+        )
